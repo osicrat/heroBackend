@@ -1,7 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require('body-parser');
-const config = require('./config')
 const app = express();
 const mongoose = require('mongoose')
 const router = express.Router();
@@ -9,7 +8,7 @@ const cors = require('cors');
 
 mongoose.connect(process.env.MONGO_URL);
 
-app.use(cors());
+app.use(cors('https://sejaoheroi.herokuapp.com'));
 
 app.use(bodyParser.urlencoded({
     extended: false
