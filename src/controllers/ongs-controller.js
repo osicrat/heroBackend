@@ -1,6 +1,10 @@
 const repository = require('../repositories/ongs-repository');
 const ValidationContract = require('../validators/validators');
-const authService = require('../services/auth-service')
+const authService = require('../services/auth-service');
+const md5 = require('md5');
+require("dotenv").config();
+
+
 
 exports.get = async (req, res, next) => {
     try {
@@ -33,7 +37,7 @@ exports.post = async (req, res, next) => {
         await repository.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: md5(req.body.password + process.env.SALT_KEY),
             phone: req.body.phone,
             city: req.body.city,
             uf: req.body.uf
@@ -56,7 +60,7 @@ exports.authenticate = async (req, res, next) => {
         const ongs = await repository.authenticate({
 
             email: req.body.email,
-            password: (req.body.password)
+            password: md5(req.body.password + process.env.SALT_KEY)
         });
 
         if (!ongs) {
