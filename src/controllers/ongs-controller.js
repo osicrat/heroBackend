@@ -93,11 +93,11 @@ exports.refreshToken = async (req, res, next) => {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
         const data = await authService.decodeToken(token);
 
-        const ongs = await repository.getById(data.id);
+        const ongs = await repository.getById(data._id);
 
         if (!ongs) {
             res.status(404).send({
-                message: 'Usuáriio não encontrado'
+                message: 'Usuário não encontrado'
             })
             return;
         }

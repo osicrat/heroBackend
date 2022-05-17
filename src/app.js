@@ -8,7 +8,7 @@ const cors = require('cors');
 
 mongoose.connect(process.env.MONGO_URL);
 
-app.use(cors('https://sejaoheroi.herokuapp.com'));
+app.use(cors(process.env.APP_URL));
 
 app.use(bodyParser.urlencoded({
     extended: false
